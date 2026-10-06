@@ -77,8 +77,6 @@ export default function App() {
         {user ? (
           <Stack.Navigator>
             <Stack.Screen name="Abas" component={Abas} options={{ headerShown: false }} />
-            <Stack.Screen name="Agendar" component={Agendar} options={({ route }) => ({ title: route.params.servico })} />
-            <Stack.Screen name="Produtos" component={Produtos} />
           </Stack.Navigator>
         ) : (
           <Stack.Navigator screenOptions={{ headerShown: false }}>

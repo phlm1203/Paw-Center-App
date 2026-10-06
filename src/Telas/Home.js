@@ -1,65 +1,53 @@
-import { Text, TouchableOpacity, View } from 'react-native';
+import { View, Text, Image, TouchableOpacity, ScrollView, StyleSheet, Alert } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { e, VERMELHO } from '../estilos';
+import { useNotificacoes } from '../notificacoes';
 
 const opcoes = [
-  { imagem: require('../../assets/imagens/banho.png'),
-    titulo: 'Banho',
-    icone: 'shower-head', 
-    params: { 
-        servico: 'Banho' 
-    } 
-},
-
-  { imagem: require('../../assets/imagens/tosa.png'),
-    titulo: 'Tosa', 
-    icone: 'content-cut', 
-    params: { 
-        servico: 'Tosa' 
-    } 
-},
-
-  { imagem: require('../../assets/imagens/consultas.png'),
-    titulo: 'Consulta', 
-    icone: 'stethoscope', 
-    params: { 
-        servico: 'Consulta' 
-    } 
-},
-
-  { imagem: require('../../assets/imagens/produtos.png'),
-    titulo: 'Produtos', 
-    icone: 'shopping', 
-    params: {} 
-},
-
+  { titulo: 'Banho', imagem: require('../../assets/imagens/banho.png') },
+  { titulo: 'Tosa', imagem: require('../../assets/imagens/tosa.png') },
+  { titulo: 'Consulta', imagem: require('../../assets/imagens/consultas.png') },
+  { titulo: 'Produtos', imagem: require('../../assets/imagens/produtos.png') },
 ];
 
-export default function Home({ navigation }) {
+export default function Home() {
+  const { enviar } = useNotificacoes();
+
+  async function aoTocar(titulo) {
+    // Notificação do tipo "loja"
+    if (titulo === 'Produtos') {
+      await enviar('Novidades na loja!', 'Confira os novos brinquedos e acessórios para o seu pet.', 5);
+      return Alert.alert('Pronto!', 'Você receberá as novidades da loja.');
+    }
+
+    // Notificações do tipo "agendamento"
+    await enviar('Agendamento confirmado!', `${titulo} agendado com sucesso.`, 2);
+    await enviar(
+      'Seu pet está pronto!',
+      `O serviço de ${titulo.toLowerCase()} foi concluído. Você já pode buscá-lo!`,
+      10
+    );
+    Alert.alert('Tudo certo!', `${titulo} agendado.`);
+  }
+
   return (
     <SafeAreaView style={s.tela} edges={['top']}>
       <ScrollView contentContainerStyle={s.conteudo} showsVerticalScrollIndicator={false}>
         {/* Banner */}
         <View style={s.banner}>
-          <Image source={require('../../assets/images/banner.jpg')} style={s.bannerImg} />
+          <Image source={require('../../assets/imagens/pawcenter-img.png')} style={s.bannerImg} />
           <View style={s.escurecer} />
           <View style={s.bannerTextos}>
             <Text style={s.bannerTitulo}>PawCenter</Text>
             <Text style={s.bannerSub}>Tudo o que seu pet precisa.</Text>
           </View>
         </View>
- 
-        <Text style={s.pergunta}>Como posso ajudá-lo(a)?</Text>
- 
+
+        <Text style={s.pergunta}>Como podemos ajudá-lo(a)?</Text>
+
         {/* Cards 2x2 */}
         <View style={s.grade}>
           {opcoes.map((o) => (
-            <TouchableOpacity
-              key={o.titulo}
-              style={s.card}
-              onPress={() => navigation.navigate(o.tela, o.params)}
-            >
+            <TouchableOpacity key={o.titulo} style={s.card} onPress={() => aoTocar(o.titulo)}>
               <Image source={o.imagem} style={s.cardImg} resizeMode="contain" />
               <Text style={s.cardTxt}>{o.titulo}</Text>
             </TouchableOpacity>
@@ -69,18 +57,18 @@ export default function Home({ navigation }) {
     </SafeAreaView>
   );
 }
- 
+
 const s = StyleSheet.create({
   tela: { 
     flex: 1, 
     backgroundColor: '#F6F8FF' 
   },
-  // paddingBottom: espaço para a barra de abas flutuante não cobrir os cards
+
   conteudo: { 
     padding: 20, 
     paddingBottom: 110 
   },
- 
+
   banner: { 
     height: 190, 
     borderRadius: 24, 
@@ -94,8 +82,8 @@ const s = StyleSheet.create({
 
   escurecer: { 
     ...StyleSheet.absoluteFillObject, 
-    backgroundColor: 'rgba(0,0,0,0.3)'
-   },
+    backgroundColor: 'rgba(0,0,0,0.3)' 
+  },
 
   bannerTextos: { 
     position: 'absolute', 
@@ -104,24 +92,23 @@ const s = StyleSheet.create({
   },
 
   bannerTitulo: { 
-    color: '#fff',
+    color: '#fff', 
     fontSize: 24, 
-    fontWeight: '800' 
+    fontWeight: '800'
   },
 
   bannerSub: { 
     color: '#fff', 
     fontSize: 14 
   },
- 
-  pergunta: { 
-    textAlign: 'center', 
+
+  pergunta: { textAlign: 'center', 
     fontSize: 18, 
     fontWeight: '700', 
     color: '#222B38', 
     marginVertical: 28 
   },
- 
+
   grade: { 
     flexDirection: 'row', 
     flexWrap: 'wrap', 
@@ -151,7 +138,7 @@ const s = StyleSheet.create({
   cardTxt: { 
     marginTop: 6, 
     fontSize: 15, 
-    fontWeight: '700',
-     color: '#222B38' 
-    },
+    fontWeight: '700', 
+    color: '#222B38' 
+  },
 });
