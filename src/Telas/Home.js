@@ -4,9 +4,9 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { e, VERMELHO } from '../estilos';
 
 const opcoes = [
-  { titulo: 'Banho',
+  { imagem: require(''),
+    titulo: 'Banho',
     icone: 'shower-head', 
-    tela: 'Agendar', 
     params: { 
         servico: 'Banho' 
     } 
@@ -14,7 +14,6 @@ const opcoes = [
 
   { titulo: 'Tosa', 
     icone: 'content-cut', 
-    tela: 'Agendar', 
     params: { 
         servico: 'Tosa' 
     } 
@@ -22,7 +21,6 @@ const opcoes = [
 
   { titulo: 'Consulta', 
     icone: 'stethoscope', 
-    tela: 'Agendar', 
     params: { 
         servico: 'Consulta' 
     } 
@@ -30,7 +28,6 @@ const opcoes = [
 
   { titulo: 'Produtos', 
     icone: 'shopping', 
-    tela: 'Produtos', 
     params: {} 
 },
 
