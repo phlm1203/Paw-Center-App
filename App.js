@@ -20,18 +20,34 @@ const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
 function Abas() {
-  const icones = { Home: 'home', Notificações: 'notifications', Perfil: 'person' };
+  const icones = { Perfil: 'person', Home: 'storefront', Notificações: 'notifications' };
   return (
     <Tab.Navigator
+      initialRouteName="Home"
       screenOptions={({ route }) => ({
         headerShown: false,
-        tabBarActiveTintColor: VERMELHO,
+        tabBarShowLabel: false,
+        tabBarActiveTintColor: '#fff',
+        tabBarInactiveTintColor: '#fff',
+        tabBarActiveBackgroundColor: '#8E8E8E',
+        tabBarItemStyle: { borderRadius: 24, margin: 5 },
+        tabBarStyle: {
+          position: 'absolute',
+          bottom: 20,
+          left: 50,
+          right: 50,
+          height: 56,
+          borderRadius: 30,
+          backgroundColor: '#CFCFCF',
+          borderTopWidth: 0,
+          elevation: 6,
+        },
         tabBarIcon: ({ color, size }) => <Ionicons name={icones[route.name]} size={size} color={color} />,
       })}
     >
+      <Tab.Screen name="Perfil" component={Perfil} />
       <Tab.Screen name="Home" component={Home} />
       <Tab.Screen name="Notificações" component={Notificacoes} />
-      <Tab.Screen name="Perfil" component={Perfil} />
     </Tab.Navigator>
   );
 }
