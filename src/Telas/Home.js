@@ -4,7 +4,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { e, VERMELHO } from '../estilos';
 
 const opcoes = [
-  { imagem: require(''),
+  { imagem: require('../../assets/imagens/af1 1.png'),
     titulo: 'Banho',
     icone: 'shower-head', 
     params: { 
@@ -12,21 +12,24 @@ const opcoes = [
     } 
 },
 
-  { titulo: 'Tosa', 
+  { imagem: require('../../assets/imagens/af2 1.png'),
+    titulo: 'Tosa', 
     icone: 'content-cut', 
     params: { 
         servico: 'Tosa' 
     } 
 },
 
-  { titulo: 'Consulta', 
+  { imagem: require('../../assets/imagens/af3 1.png'),
+    titulo: 'Consulta', 
     icone: 'stethoscope', 
     params: { 
         servico: 'Consulta' 
     } 
 },
 
-  { titulo: 'Produtos', 
+  { imagem: require('../../assets/imagens/Design sem nome (8) 1.png'),
+    titulo: 'Produtos', 
     icone: 'shopping', 
     params: {} 
 },
